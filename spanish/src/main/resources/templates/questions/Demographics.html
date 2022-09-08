@@ -145,7 +145,7 @@
                         <div><label class="question" required="true"
                                     th:field="*{Birthplace}" th:text="#{demographics.birthplace}">What is your birthplace?</label><br/><br/>
                             <div class="col-md-8">
-                            <textarea style="resize: none;" rows="1" cols="30" required="true" />
+                            <textarea style="resize: none;" th:field="*{Birthplace}" rows="1" cols="30" required="true" />
                         </div>
                             </div>
                         <br/>
@@ -155,7 +155,7 @@
                         <div><label class="question" required="true"
                                     th:field="*{Nationality}" th:text="#{demographics.nationality}">What nationality or nationalities is/are associated with your family history?</label><br/><br/>
                             <div class="col-md-8">
-                                <textarea style="resize: none;" rows="1" cols="30" required="true" />
+                                <textarea style="resize: none;" th:field="*{Nationality}" rows="1" cols="30" required="true" />
                             </div>
                         </div>
                         <br/>
@@ -1087,7 +1087,6 @@
                         </div>
 
                         <br/>
-
                         <!-- Removed 'PtpReason' and 'PtpReasonOther' from MT Spanish as pps will be recruited directly in this study
 
                         <div><label class="question" th:text="#{demographics.how_learn}"> How did you learn about MindTrails?</label><br/><br/>
