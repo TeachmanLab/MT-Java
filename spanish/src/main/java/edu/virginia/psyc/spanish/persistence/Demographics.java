@@ -22,6 +22,10 @@ public class Demographics extends LinkedQuestionnaireData {
     @NotNull
     private String Ethnicity;
     @NotNull
+    private String Birthplace;
+    @NotNull
+    private String Nationality;
+    @NotNull
     private String Country;
     @NotNull
     private String Education;
