@@ -118,11 +118,14 @@ public class SpanishParticipantService extends ParticipantServiceImpl implements
     public void saveNew(Participant p, HttpSession session) throws MissingEligibilityException {
 
         Locale locale;
-
         // Check campaign field to assign condition to participant, 'enb' is the English Bilingual group,
         // 'esb' is the Spanish Bilingual group, 'esd' is the Spanish Dominant group.
         String condition = (String)session.getAttribute("condition");
         p.getStudy().setConditioning(condition);
+
+        //set the campaign that was recorded when the user entered the eligibility controller
+        String campaign = (String)session.getAttribute("cp");
+        p.setCampaign(campaign);
 
         // All Spanish Participants should receive gift cards if they are available.
         p.setReceiveGiftCards(tangoService.getEnabled());

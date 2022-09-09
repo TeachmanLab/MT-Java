@@ -105,6 +105,18 @@ public class Evaluation extends LinkedQuestionnaireData {
     private Integer technology;
 
     @NotNull
+    private String coach;
+    @NotNull
+    private String fit;
+    @NotNull
+    private String goal;
+    @NotNull
+    private String topics;
+    @NotNull
+    private String pronouns;
+    private String otherPronouns;
+
+    @NotNull
     private String idealSessions;
     @NotNull
     private Integer similarProgram;
