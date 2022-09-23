@@ -270,7 +270,7 @@
         <div class="wrapper mb-3 border border-trbl border-round ">
             <canvas id="signature-pad" class="signature-pad" style="border: 1px solid black;">
             </canvas>
-                <button class="button" id="clear" style="margin-left: 5%; font-size: 10px; width: 120px; max-width: 110%;" th:text="#{consent.p8o}">Clear Signature</button>
+                <button class="button"  id="clear" style="margin-left: 5%; font-size: 10px; width: 120px; max-width: 110%;" th:text="#{consent.p8o}">Clear Signature</button>
         </div>
     </div>
 
@@ -325,6 +325,8 @@
 
          cancelButton.addEventListener('click', function (event) {
            signaturePad.clear();
+           event.preventDefault();
+           event.stopPropagation();
            return false;
          });
 	/*]]>*/

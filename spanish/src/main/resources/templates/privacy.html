@@ -5,7 +5,13 @@
 <!--[if (gte IE 9)|!(IE)]><!-->
 <html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
 <!--<![endif]-->
-<head th:include="fragment/common :: headerFragment" />
+<head th:include="fragment/common :: headerFragment" >
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
 <body>
 
 <li th:if="${participant}">
@@ -13,6 +19,17 @@
 </li>
 
 <section th:include="fragment/common :: titleBar (title=#{privacy.title})"/>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <a th:href="@{/spanish/account/create}">Mental Health Resources<span></span></a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- content starts
 ================================================== -->
@@ -175,6 +192,11 @@
 <!--Javascript
 ================================================== -->
 <div th:include="fragment/common :: scripts" />
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#myModal").modal('show');
+    });
+</script>
 
 </body>
 </html>
