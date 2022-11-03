@@ -50,6 +50,7 @@ public class Participant implements UserDetails, HasStudy {
     protected String email;
     protected String phone;
     protected boolean admin;
+    protected boolean export; //added for export role
     protected String printedName;
     protected boolean coaching;
     protected boolean testAccount;
@@ -139,6 +140,7 @@ public class Participant implements UserDetails, HasStudy {
         Collection<GrantedAuthority> list = new ArrayList();
         list.add(new SimpleGrantedAuthority("ROLE_USER"));
         if (admin) list.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        if(export) list.add(new SimpleGrantedAuthority("ROLE_EXPORT"));
         if (coaching) list.add(new SimpleGrantedAuthority("ROLE_COACH"));
         return list;
     }
@@ -216,6 +218,7 @@ public class Participant implements UserDetails, HasStudy {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", admin=" + admin +
+                ", export=" + export +
                 ", emailReminders=" + emailReminders +
                 ", active=" + active +
                 '}';

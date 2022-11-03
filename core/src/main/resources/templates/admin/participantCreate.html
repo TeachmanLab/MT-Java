@@ -84,6 +84,11 @@
                             <td  class="error" th:if="${#fields.hasErrors('admin')}" th:errors="*{admin}">Admin Error</td>
                         </tr>
                         <tr>
+                            <td>Is Export Only User: </td>
+                            <td><input type="checkbox" th:field="*{export}"/></td>
+                            <td  class="error" th:if="${#fields.hasErrors('export')}" th:errors="*{export}">Export Error</td>
+                        </tr>
+                        <tr>
                             <td>Is Coach:</td>
                             <td><input type="checkbox" th:field="*{coaching}"/></td>
                             <td  class="error" th:if="${#fields.hasErrors('coaching')}" th:errors="*{coaching}">Coach Error</td>

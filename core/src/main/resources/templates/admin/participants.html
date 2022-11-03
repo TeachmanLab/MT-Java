@@ -30,7 +30,7 @@
                         <p>Found <span th:text="${paging.totalElements}"> 100</span> participants. Showing page <span
                                 th:text="${paging.number + 1}">1</span> of <span
                                 th:text="${paging.totalPages}">10</span>.<br/>
-                            <a th:href="@{/admin/participant/}">New Participant / Admin</a>
+                            <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/admin/participant/}">New Participant / Admin</a>
                         </p>
                     </div>
                 </div>
@@ -69,15 +69,15 @@
                                 <td><span th:if="${p.emailReminders}">Yes</span></td>
                                 <td><span th:if="${p.phoneReminders}">Yes</span></td>
                                 <td><span th:if="${p.active}">Active</span></td>
-                                <td><span th:if="${p.admin}">Admin</span> <span th:if="${p.coaching}">Coach</span></td>
+                                <td><span th:if="${p.admin}">Admin</span> <span th:if="${p.coaching}">Coach</span><span th:if="${p.export}">Export</span></td>
                                 <td><span th:if="${p.testAccount}">Test</span></td>
                                 <td><span th:if="${p.blacklist}">Blacked</span></td>
                                 <td><span th:if="${p.receiveGiftCards} and ${p.verified} and ${!p.blacklist}">Qualified</span></td>
                                 <td>
-                                    <a th:href="@{'/admin/participant/'+${p.id}}">Edit Participant</a>
+                                    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/admin/participant/'+${p.id}}">Edit Participant</a>
                                 </td>
                                 <td>
-                                    <a th:href="@{'/admin/study/'+${p.id}}">Edit Study</a>
+                                    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/admin/study/'+${p.id}}">Edit Study</a>
                                 </td>
                             </tr>
                             </tbody>

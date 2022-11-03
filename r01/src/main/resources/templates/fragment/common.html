@@ -495,7 +495,17 @@
             </li>
         </ul>
     </div>
+    <div class="adminTools container" sec:authorize="hasRole('ROLE_EXPORT')">
+        <h5>Export Tools</h5>
 
+        <p>This section is only visible to you because you have been granted export access.</p>
+        <ul class="list-info">
+            <li><a th:href="@{/admin}">User Administration</a>: provides a way to view all accounts created on the system.
+            </li>
+            <li><a th:href="@{/admin/export}">Export</a>: allows you to export questionnaire data.
+            </li>
+        </ul>
+    </div>
     <!--column two starts-->
     <div class="adminTools container" sec:authorize="hasRole('ROLE_COACH')">
         <h5>Coaching Tools</h5>

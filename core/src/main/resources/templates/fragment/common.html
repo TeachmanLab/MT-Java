@@ -166,6 +166,17 @@
             </li>
         </ul>
     </div>
+    <div class="adminTools" sec:authorize="hasRole('ROLE_EXPORT')">
+        <h5>Export Role Tools</h5>
+
+        <p>This section is only visible to you because you have been granted export access.</p>
+        <ul class="list-info">
+            <li><a th:href="@{/admin/export}">Export</a>: allows you to export questionnaire data.
+            </li>
+            <li><a th:href="@{/admin}">User Administration</a>: provides a way to view all accounts created on the system.
+            </li>
+        </ul>
+    </div>
     <div class="copyright">&copy; Copyright 2016 &bull; All rights reserved</div>
 </footer>
 
