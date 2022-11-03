@@ -116,7 +116,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             "/resetPass",
                             "/resetPassStep2/**",
                             "/changePassword/**").permitAll()
-                    .antMatchers("/admin", "/admin/**").hasRole("ADMIN")
+                    .antMatchers( "/admin").hasAnyRole("EXPORT","ADMIN")
+                    .antMatchers( "/admin/export").hasRole("EXPORT")
+                    .antMatchers( "/admin/**").hasRole("ADMIN")
                     .antMatchers("/**").hasRole("USER")
                     .anyRequest().authenticated()
                     .and() //Login Form configuration for all others
