@@ -59,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             http.csrf().disable()
                     .antMatcher("/api/**")
                     .authorizeRequests()
-                    .anyRequest().hasRole("ADMIN")
+                    .anyRequest().hasAnyRole("ADMIN","EXPORT")
 //                    .anyRequest().permitAll()  // disables API Security if swtiched with line above
                     .and()
                     .httpBasic();
@@ -120,8 +120,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             "/resetPass",
                             "/resetPassStep2/**",
                             "/changePassword/**").permitAll()
-                    .antMatchers( "/admin").hasAnyRole("EXPORT","ADMIN")
-                    .antMatchers( "/admin/export").hasRole("EXPORT")
+                    .antMatchers( "/admin","/admin/export").hasAnyRole("EXPORT","ADMIN")
                     .antMatchers( "/admin/**").hasRole("ADMIN")
                     .antMatchers("/**").hasRole("USER")
                     .anyRequest().authenticated()
