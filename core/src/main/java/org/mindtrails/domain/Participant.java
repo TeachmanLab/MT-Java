@@ -50,6 +50,8 @@ public class Participant implements UserDetails, HasStudy {
     protected String email;
     protected String phone;
     protected boolean admin;
+    protected boolean export; //added for export role
+    protected String printedName;
     protected boolean coaching;
     protected boolean testAccount;
     protected String password;
@@ -79,6 +81,7 @@ public class Participant implements UserDetails, HasStudy {
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
     @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     private Date dateCreated = new Date();
+    private String language = "en";  // Preferred language, should be either "en" or "es" for spanish
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
@@ -97,6 +100,10 @@ public class Participant implements UserDetails, HasStudy {
     @OneToMany(mappedBy="coachedBy")
     @JsonIgnore
     protected List<Participant> coachees = new ArrayList<>();
+
+    //to store the signature file
+    @Lob
+    protected byte[] signature;
 
 
     // IMPORTANT: Automatic email notifications start failing when
@@ -133,6 +140,7 @@ public class Participant implements UserDetails, HasStudy {
         Collection<GrantedAuthority> list = new ArrayList();
         list.add(new SimpleGrantedAuthority("ROLE_USER"));
         if (admin) list.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        if(export) list.add(new SimpleGrantedAuthority("ROLE_EXPORT"));
         if (coaching) list.add(new SimpleGrantedAuthority("ROLE_COACH"));
         return list;
     }
@@ -177,7 +185,7 @@ public class Participant implements UserDetails, HasStudy {
         return true;
     }
 
-  /* ********************* *
+    /* ********************* *
      *  Logging.   *
      * ********************* */
 
@@ -210,6 +218,7 @@ public class Participant implements UserDetails, HasStudy {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", admin=" + admin +
+                ", export=" + export +
                 ", emailReminders=" + emailReminders +
                 ", active=" + active +
                 '}';
@@ -344,6 +353,14 @@ public class Participant implements UserDetails, HasStudy {
             }
         }
         return false;
+    }
+
+    public Locale locale() {
+        if (this.getLanguage() != null) {
+            return new Locale(this.getLanguage());
+        } else {
+            return Locale.ENGLISH;
+        }
     }
 
     @JsonIgnore
