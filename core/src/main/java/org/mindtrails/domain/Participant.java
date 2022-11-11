@@ -51,7 +51,7 @@ public class Participant implements UserDetails, HasStudy {
     protected String phone;
     protected boolean admin;
     protected boolean export; //added for export role
-    protected String printedName;
+
     protected boolean coaching;
     protected boolean testAccount;
     protected String password;
@@ -81,7 +81,7 @@ public class Participant implements UserDetails, HasStudy {
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
     @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     private Date dateCreated = new Date();
-    private String language = "en";  // Preferred language, should be either "en" or "es" for spanish
+
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
@@ -101,9 +101,7 @@ public class Participant implements UserDetails, HasStudy {
     @JsonIgnore
     protected List<Participant> coachees = new ArrayList<>();
 
-    //to store the signature file
-    @Lob
-    protected byte[] signature;
+
 
 
     // IMPORTANT: Automatic email notifications start failing when
@@ -355,13 +353,7 @@ public class Participant implements UserDetails, HasStudy {
         return false;
     }
 
-    public Locale locale() {
-        if (this.getLanguage() != null) {
-            return new Locale(this.getLanguage());
-        } else {
-            return Locale.ENGLISH;
-        }
-    }
+
 
     @JsonIgnore
     public int getTotalCoachInteractions() {
