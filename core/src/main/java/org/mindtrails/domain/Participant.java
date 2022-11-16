@@ -6,6 +6,7 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.joda.time.DateTime;
@@ -33,6 +34,7 @@ import java.util.*;
 @Data
 @EqualsAndHashCode(exclude={"emailLogs", "giftLogs", "SMSLogs", "passwordToken","verificationCode", "coachees"})
 @DoNotDelete
+@DynamicUpdate
 public class Participant implements UserDetails, HasStudy {
 
     private static final Logger LOG = LoggerFactory.getLogger(Participant.class);
