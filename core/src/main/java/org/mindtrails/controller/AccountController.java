@@ -415,9 +415,13 @@ public class AccountController extends BaseController {
             return "account";
         } else {
             Participant p = participantService.get(principal);
+            Boolean isPhoneChange = formatPhone(p.getPhone()) != formatPhone(form.getPhone());
             form.updateParticipant(p);
             participantService.save(p);
             model.addAttribute("updated", true);
+            if(isPhoneChange == true) {
+                return updatePhone(model, principal, formatPhone(p.getPhone()));
+            }
             return "redirect:/session";
         }
     }

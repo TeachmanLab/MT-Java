@@ -10,6 +10,7 @@ import org.mindtrails.domain.Participant;
 public class ParticipantUpdateAdmin extends ParticipantUpdate {
 
     private boolean active;
+    private  boolean verified;
     private boolean admin;
 
     private boolean export; //added for export role
@@ -28,6 +29,7 @@ public class ParticipantUpdateAdmin extends ParticipantUpdate {
     public void fromParticipant(Participant p) {
         super.fromParticipant(p);
         this.active = p.isActive();
+        this.verified = p.isVerified();
         this.admin = p.isAdmin();
         this.export=p.isExport();
         this.coaching = p.isCoaching();
@@ -40,6 +42,7 @@ public class ParticipantUpdateAdmin extends ParticipantUpdate {
     public Participant updateParticipant(Participant p) {
         super.updateParticipant(p);
         p.setActive(this.isActive());
+        p.setVerified(this.isVerified());
         p.setAdmin(this.isAdmin());
         p.setExport(this.isExport());
         p.setCoaching(this.isCoaching());

@@ -75,6 +75,9 @@
                     <span class="note" th:if="${verified}">
                        Your phone number has been verified &mdash; please <a href="mailto:studyteam@mindtrails.org">contact the study team</a> if you wish to change your phone number.
                    </span>
+                    <span class="note" th:if="${verified == false}">
+                       Your phone number has not been verified and can still be changed.  A verification code will be sent to your phone number when you update this page.
+                   </span>
                     <span>✓</span><span id="valid-msg" class="note hide" th:text="#{consent.valid}"> Valid</span>
                     <span id="error-msg" class="error hide"></span>
                 </div>
