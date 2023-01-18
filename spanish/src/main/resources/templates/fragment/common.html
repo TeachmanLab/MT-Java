@@ -520,9 +520,10 @@
             </li>
         </ul>
     </div>
+    <div class="adminTools container">
     <div class="text-muted"  sec:authorize="hasRole('ROLE_ADMIN')" th:text="'mode:'+${@environment.getProperty('import.mode')}+' - db:'+${@environment.getProperty('spring.datasource.url')}"></div>
     <div hidden="true"  sec:authorize="!hasRole('ROLE_ADMIN')" th:text="'mode:'+${@environment.getProperty('import.mode')}+' - db:'+${@environment.getProperty('spring.datasource.url')}"></div>
-
+    </div>
 
 
 </footer>

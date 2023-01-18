@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.env.Environment;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
@@ -39,6 +40,9 @@ import java.util.List;
 public class TangoService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TangoService.class);
+
+    @Autowired
+    private Environment env;
 
     @Value("${tango.enabled}")
     private Boolean enabled;
@@ -156,6 +160,7 @@ public class TangoService {
             return this.exchangeRates;
         }
         LOGGER.info("RE-Loading Exchange Rates.");
+        LOGGER.info("setting path:"+env.getProperty("spring.config.location")+", logPath:"+env.getProperty("logging.file")+", db:"+env.getProperty("spring.datasource.url"));
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<String> request = new HttpEntity<String>(headers());
         URI uri = URI.create(url + "/exchangerates");
