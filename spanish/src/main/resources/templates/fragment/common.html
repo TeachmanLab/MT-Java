@@ -466,6 +466,7 @@
         <h5>Administration Tools</h5>
 
         <p>This section is only visible to you because you have been granted administrative access.</p>
+
         <ul class="list-info">
             <li><a th:href="@{/admin}">User Administration</a>: provides a way to view all accounts created on the
                 system.
@@ -519,11 +520,14 @@
             </li>
         </ul>
     </div>
+    <div class="text-muted"  sec:authorize="hasRole('ROLE_ADMIN')" th:text="'mode:'+${@environment.getProperty('system.mode')}+' - db:'+${@environment.getProperty('spring.datasource.url')}"></div>
+    <div hidden="true"  sec:authorize="!hasRole('ROLE_ADMIN')" th:text="'mode:'+${@environment.getProperty('system.mode')}+' - db:'+${@environment.getProperty('spring.datasource.url')}"></div>
+
+
 
 </footer>
 
 
-<!--If you need to include javascript at the end of the page.  -->
 <div id="scripts" th:fragment="scripts">
     <script  type="text/javascript" th:inline="javascript">
         $(document).ready(function () {
