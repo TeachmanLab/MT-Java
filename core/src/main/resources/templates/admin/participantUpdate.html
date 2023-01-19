@@ -6,7 +6,7 @@
 <!--[if IE 8 ]>
 <html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
-<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <!--<![endif]-->
 <head th:include="fragment/common :: headerFragment"/>
 <body>
@@ -139,10 +139,14 @@
                             </td>
                         </tr>
                     </table>
+                    <div class="submitDiv" sec:authorize="hasRole('ROLE_ADMIN')">
                     <button type="submit">Submit</button>
+                    </div>
                 </form>
                 <form action="#" th:action="@{'/admin/participant/'+ ${participantEdit.id} +'/awardCard'}" method="post">
+                    <div class="submitGiftDiv" sec:authorize="hasRole('ROLE_ADMIN')">
                     <button type="submit">Send Gift Card</button>
+                    </div>
                 </form>
             </div>
             <section th:replace="admin/adminCommon :: participantDetails(${participantEdit})"/>

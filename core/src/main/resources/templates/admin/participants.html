@@ -6,7 +6,7 @@
 <!--[if IE 8 ]>
 <html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
-<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <!--<![endif]-->
 <head th:include="fragment/common :: headerFragment"/>
 <body>
@@ -74,7 +74,8 @@
                                 <td><span th:if="${p.blacklist}">Blacked</span></td>
                                 <td><span th:if="${p.receiveGiftCards} and ${p.verified} and ${!p.blacklist}">Qualified</span></td>
                                 <td>
-                                    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/admin/participant/'+${p.id}}">Edit Participant</a>
+                                    <a th:href="@{'/admin/participant/'+${p.id}}">Edit Participant</a>
+
                                 </td>
                                 <td>
                                     <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/admin/study/'+${p.id}}">Edit Study</a>
