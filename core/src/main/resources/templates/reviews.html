@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment"/>
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+<section th:include="fragment/common :: titleBar (title='Reviews')"/>
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="container"><h3><b>Reviews and Testimonials</b></h3></div>
+            <br/>
+
+            <div class="col-xs-14 col-sm-5">
+                <table>
+                    <tr>
+                        <td align="center" style="margin: 0 auto; width: 400px"><img
+                                th:src='@{/images/shirt-orange.png}' height="220"/></td>
+                    </tr>
+                    <tr>
+                        <td align="justify">
+                            attack feet behind the couch destroy couch flop over give attitude hide when guests come over hopped up on goofballs hunt anything that moves chase mice lick butt all of a sudden go crazy sweet beast under the bed shake treat   intently sniff hand  bag stretch  rub face on everything why must they do that  claw drapes chew ipad power cord  swat at dog flop over chase imaginary bugs give attitude  intently sniff hand   rub face on everything why must they do that  claw drapes hide when guests come over chew ipad power cord  flop over                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-xs-14 col-sm-5">
+                <table>
+                    <tr>
+                        <td align="center" style="margin: 0 auto; width: 400px"><img
+                                th:src='@{/images/shirt-blue.png}' height="220"/></td>
+                    </tr>
+                    <tr>
+                        <td align="justify">
+                            attack feet behind the couch destroy couch flop over give attitude hide when guests come over hopped up on goofballs hunt anything that moves chase imaginary bugs why must they do that                    </tr>
+                </table>
+            </div>
+            <div class="col-xs-14 col-sm-5">
+                <table>
+                    <tr>
+                        <td align="center" style="margin: 0 auto; width: 400px"><img
+                                th:src='@{/images/shirt-gold.png}' height="220"/></td>
+                    </tr>
+                    <tr>
+                        <td align="justify">
+                            attack feet behind the couch destroy couch flop over give attitude hide when guests come over hopped up on goofballs hunt anything that moves shake treat   claw drapes why must they do that  intently sniff hand  swat at dog inspect anything brought into the house leave dead animals as gifts need to chase tail sweet beast under the bed   stand in front of the computer screen   rub face on everything                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+        <br/>
+        <br/>
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
