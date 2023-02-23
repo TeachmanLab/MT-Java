@@ -25,6 +25,7 @@ public class ParticipantExport {
     private String theme;
     private boolean testAccount;
     private boolean admin;
+    private boolean export; //added for export role
     private boolean emailReminders;
     private boolean phoneReminders;
     private String timezone;
