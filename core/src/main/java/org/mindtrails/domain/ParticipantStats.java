@@ -11,6 +11,7 @@ public interface ParticipantStats {
     String getReference();
     //String getCampaign();
     boolean isAdmin();
+    boolean isExport();
     boolean isTestAccount();
     long getId();
 

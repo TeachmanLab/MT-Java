@@ -23,6 +23,7 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
 
     private boolean over18;
     private boolean admin;
+    private boolean export; //added for export role
     private boolean coaching;
     private Participant coachedBy;
     private boolean active = true;
@@ -81,6 +82,7 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
         this.setOver18(p.isOver18());
         this.setActive(p.isActive());
         this.setAdmin(p.isAdmin());
+        this.setExport(p.isExport());
         this.setCoaching(p.isCoaching());
         this.setCoachedBy(p.getCoachedBy());
         this.setTestAccount(p.isTestAccount());
@@ -94,6 +96,7 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
         p.setActive(active);
         p.setReceiveGiftCards(receiveGiftCards);
         p.setAdmin(admin);
+        p.setExport(export);
         p.setCoaching(coaching);
         p.setTestAccount(testAccount);
         p.setCoachedBy(this.coachedBy);

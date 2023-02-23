@@ -40,11 +40,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
         auth.userDetailsService(username -> {
-                Participant participant = participantRepository.findByEmail(username);
-                if (participant != null) {
-                    LOG.info("Participant Found:" + participant);
-                    return participant;
-                } else return null;
+            Participant participant = participantRepository.findByEmail(username);
+            if (participant != null) {
+                LOG.info("Participant Found:" + participant);
+                return participant;
+            } else return null;
         }).passwordEncoder(new StandardPasswordEncoder());
     }
 
@@ -56,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             http.csrf().disable()
                     .antMatcher("/api/**")
                     .authorizeRequests()
-                    .anyRequest().hasRole("ADMIN")
+                    .anyRequest().hasAnyRole("ADMIN","EXPORT")
 //                    .anyRequest().permitAll()  // disables API Security if swtiched with line above
                     .and()
                     .httpBasic();
@@ -116,17 +116,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             "/resetPass",
                             "/resetPassStep2/**",
                             "/changePassword/**").permitAll()
-                    .antMatchers("/admin", "/admin/**").hasRole("ADMIN")
+                    .antMatchers( "/admin","/admin/export").hasAnyRole("EXPORT","ADMIN")
+                    .antMatchers( "/admin/**").hasRole("ADMIN")
                     .antMatchers("/**").hasRole("USER")
                     .anyRequest().authenticated()
                     .and() //Login Form configuration for all others
                     .formLogin()
-                        .defaultSuccessUrl("/session")
-                        .loginPage("/login")
-                        .permitAll()
-                        .and()
+                    .defaultSuccessUrl("/session")
+                    .loginPage("/login")
+                    .permitAll()
+                    .and()
                     .logout()
-                        .permitAll();
+                    .permitAll();
         }
     }
 }
