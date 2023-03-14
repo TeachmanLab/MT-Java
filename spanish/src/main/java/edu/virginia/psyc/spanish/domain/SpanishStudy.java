@@ -95,7 +95,6 @@ public class SpanishStudy extends BaseStudy {
         session1.addTask(new Task("Comorbid","Mood Assessment", Task.TYPE.questions, 0 ));
         session1.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.angular, 5));
         session1.addTask(new Task("RR","Completing Short Stories, Pt. 2", Task.TYPE.questions, 0 ));
-        session1.addTask(new Task("Covid19","COVID-19", Task.TYPE.questions, 0 ));
         session1.addTask(new Task("Affect","Current Feelings, Pre", "pre", Task.TYPE.questions, 0));
         session1.addTask(new Task("1", "Training Session 1", Task.TYPE.angular, 20));
         session1.addTask(new Task("Affect","Current Feelings, Post", "post", Task.TYPE.questions, 0));
