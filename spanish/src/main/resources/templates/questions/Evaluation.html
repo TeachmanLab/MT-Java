@@ -464,6 +464,46 @@
                     </div>
             </div>
         </div>
+        <div class="container section">
+            <div class="row">
+                <div class="col-md-10">
+                    <b><p th:text="#{Evaluation.mostHelpful}">What did you find most helpful about MindTrails?</p></b>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8 side-border">
+                    <textarea style="resize: none;" rows="3" cols="60" name="mostHelpful" onchange="disableSection(this)"></textarea>
+                </div>
+                <div class="col-md-4">
+                    <div class="radio">
+                        <label class="question"><input th:text="#{prefer_not_to_answer}" type="radio" name="mostHelpful" value="555"
+                                                       onchange="disableSection(this)"/> &nbsp;&nbsp;
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container section">
+            <div class="row">
+                <div class="col-md-10">
+                    <b><p th:text="#{Evaluation.suggestions}">Do you have suggestions for ways to improve MindTrails for individuals experiencing anxiety?</p></b>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8 side-border">
+                    <textarea style="resize: none;" rows="3" cols="60" name="suggestions" onchange="disableSection(this)"></textarea>
+                </div>
+                <div class="col-md-4">
+                    <div class="radio">
+                        <label class="question"><input th:text="#{prefer_not_to_answer}" type="radio" name="suggestions" value="555"
+                                                       onchange="disableSection(this)"/> &nbsp;&nbsp;
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 

@@ -122,7 +122,10 @@ public class Evaluation extends LinkedQuestionnaireData {
     private Integer similarProgram;
     @NotNull
     private Integer otherTreatment;
-
+    @NotNull
+    private String mostHelpful;
+    @NotNull
+    private String suggestions;
     @ElementCollection
     @CollectionTable(name = "evaluation_places", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "places")
