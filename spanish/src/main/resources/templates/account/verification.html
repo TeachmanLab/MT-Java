@@ -22,9 +22,9 @@
             </div>
             <div class="col-md-8">
                 <h2 class="page-title heading-icon" th:text="#{verification.title}">Verify Your Phone Number</h2>
-                <span th:text="#{verification.description}">To receive an e-gift card when you complete the study, we first need to verify your phone number.</span>
+                <span th:text="#{verification.description2}">We need to confirm your phone number is correct for us to send you an e-gift card when you complete the MindTrails study.</span>
                 <br></br>
-                <span th:text="#{verification.p3a}">We just sent you a text message with a</span> <b><span th:text="#{verification.p3b}">six digit</span></b> <span th:text="#{verification.p3c}">code to the phone number assigned to your account. When you receive the code, please enter it in the field below and click the "Verify" button.</span>
+                <span th:text="#{verification.p3alternate}">When you enter the code, then we know we have the right phone number for you and can use that to send you a gift card at the end of the study. Thanks!</span>
                 <br></br>
                 <br></br>
                 <form action="#" th:action="@{/account/updateVerification}" method="post">

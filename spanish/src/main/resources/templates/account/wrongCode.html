@@ -21,8 +21,8 @@
             </div>
             <div class="col-md-8">
                 <h2 th:text="#{verification.title}" class="page-title heading-icon">Verify Your Phone Number</h2>
-                <span th:text="#{verification.p3a}">The code you entered was</span> <b><span th:text="#{verification.p3b}">incorrect</span></b>.
-                <span th:text="#{verification.p3c}">You can re-enter your phone number here:</span>
+                <span th:text="#{verification.invalid2}">The code you entered was not quite right.</span>
+                <span th:text="#{verification.p3d}">You can re-enter your phone number here:</span>
                 <br></br>
                 <form action="#" th:action="@{/account/updateWrongCode}"  th:object="${participant}"  method="post">
                     <br></br>
@@ -83,7 +83,7 @@
                     <div class="row">
                         <div class="col-md-8">
                             <div class="row" style="padding-left: 15px;">
-                                <span th:text="#{verification.p5}">Or you can re-enter your verification code:&nbsp;&nbsp;</span>
+                                <span th:text="#{verification.p5}">Or you can re-enter the code we sent:&nbsp;&nbsp;</span>
                                 <input class="input-lg" style="font-size:30px;" id="verifycode" type="text" maxlength="6" size="2" name="verifycode"/></div>
                                 <div class="row" style="padding-left: 15px;"><span th:text="#{verification.verify}" class="pull-left">
                                     <button id="subCode" type="submit" disabled="disabled" name="sub" value="subCode">Verify</button></span>
