@@ -42,17 +42,17 @@ public class Application {
 
     public static void main(String[] args) throws IOException {
         Properties properties = new Properties();
-        //LOGGER.info("main:"+ new File("").getAbsolutePath());
+        LOGGER.info("main:"+ new File("").getAbsolutePath());
         InputStream in = Application.class.getClassLoader().getResourceAsStream("default.properties");
         properties.load(in);
 
-        File f = new File("");
-        String appName = f.getAbsoluteFile().getName();
-        String tomcatRoot = f.getAbsoluteFile().getParentFile().getAbsolutePath();
-        String settingPath = Paths.get(tomcatRoot, "appConfig", appName+".properties").toAbsolutePath().toString();
-        properties.setProperty("spring.config.name", appName);
-        properties.setProperty("spring.config.location", "file:///"+settingPath);
-        LOGGER.info("spring.config.location:"+"file:///"+settingPath);
+        //File f = new File("");
+        //String appName = f.getAbsoluteFile().getName();
+        //String tomcatRoot = f.getAbsoluteFile().getParentFile().getAbsolutePath();
+        //String settingPath = Paths.get(tomcatRoot, "appConfig", appName+".properties").toAbsolutePath().toString();
+        //properties.setProperty("spring.config.name", appName);
+        //properties.setProperty("spring.config.location", "file:///"+settingPath);
+        //LOGGER.info("spring.config.location:"+"file:///"+settingPath);
 //properties.setProperty("spring.config.additional-location", "file:///"+settingPath);
             //System.setProperty("spring.config.location", "file:./application.properties, optional:file:///"+settingPath);
             //InputStream in2 = new FileInputStream(f);

@@ -30,13 +30,15 @@ import java.util.Locale;
 import java.util.Set;
 
 
+
+
 /**
 * Verify that a new person is eligible for participating in the study.
  */
 @Controller
 public class EligibleController extends BaseController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(EligibleController.class);
+
 
     // Eligibility form is saved to the session for retrieval when the user it found.
     private static final String BIAS_SESSION = "bias";
@@ -59,7 +61,7 @@ public class EligibleController extends BaseController {
     @Autowired
     private LocaleResolver localeResolver;
 
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(EligibleController.class);
     private Validator validator;
 
     public EligibleController() {
@@ -73,11 +75,10 @@ public class EligibleController extends BaseController {
     public String showEligibility(ModelMap model,
                                   HttpSession session,
                                   final @RequestParam(value = "cp", required = false) String campaign) {
-
         if (campaign == null || campaign.length() == 0) {
             return "inviteOnly";
         }
-
+    LOGGER.debug("showEligibility session id:"+session.getId());
         // Strip the first three characters of the campaign off, this will be our
         // condition.
         String condition_code = campaign.trim().substring(0,3);
@@ -120,6 +121,7 @@ public class EligibleController extends BaseController {
     @RequestMapping(value = "public/eligibilityCheck", method = RequestMethod.POST)
     public String checkEligibility(@ModelAttribute("OA") OA oa,
                                    ModelMap model, HttpSession session) {
+        LOGGER.debug("checkEligibility session id:"+session.getId());
 
         oa.setSessionId(session.getId());
         oa.setDate(new Date());
@@ -135,6 +137,7 @@ public class EligibleController extends BaseController {
     public String checkEligibilityStep2(@ModelAttribute("DASS21as") DASS21_AS dass,
                                         ModelMap model, HttpSession session) {
 
+        LOGGER.debug("checkEligibilityStep2 session id:"+session.getId());
         dass.setSessionId(session.getId());
         dass.setDate(new Date());
         if (!dass.getOver18().equals("true")) {  // Deal with null and empty responses.

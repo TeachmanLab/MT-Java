@@ -18,6 +18,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.LocaleResolver;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
@@ -123,6 +127,7 @@ public class SpanishParticipantService extends ParticipantServiceImpl implements
         String condition = (String)session.getAttribute("condition");
         p.getStudy().setConditioning(condition);
 
+        p.setEuConsentAgreedDate(p.isEuCitizen() ? Date.from(LocalDateTime.now().atZone(ZoneId.of("America/New_York")).toInstant()) : null);
         //set the campaign that was recorded when the user entered the eligibility controller
         String campaign = (String)session.getAttribute("cp");
         p.setCampaign(campaign);
@@ -154,7 +159,6 @@ public class SpanishParticipantService extends ParticipantServiceImpl implements
 
         save(p);
         SpanishStudy study = (SpanishStudy) p.getStudy();
-
         for (DASS21_AS e : dass_list) {
             e.setParticipant(p);
             e.setSession(ELIGIBLE_SESSION);
@@ -162,7 +166,6 @@ public class SpanishParticipantService extends ParticipantServiceImpl implements
             dass21RRepository.save(e);
             study.completeEligibility(e);
         }
-
         for (OA oa : oa_list) {
             oa.setParticipant(p);
             oa.setSession(ELIGIBLE_SESSION);

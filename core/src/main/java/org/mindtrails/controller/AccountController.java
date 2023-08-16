@@ -97,7 +97,7 @@ public class AccountController extends BaseController {
 
     @RequestMapping(value="create", method = RequestMethod.GET)
     public String createForm (ModelMap model, HttpSession session) {
-
+        LOG.debug("createForm session id:"+session.getId());
         addAttributesForCreateParticipantForm(model);
         model.addAttribute("participantForm", new ParticipantCreate());
         if(participantService.isEligible(session) || importService.isImporting()) {
@@ -113,7 +113,7 @@ public class AccountController extends BaseController {
                                        final BindingResult bindingResult,
                                        HttpSession session
     ) throws IOException {
-
+        LOG.debug("createNewParticipant session id:"+session.getId());
         Participant participant;
         String signatureResponse = participantCreate.getSignatureResponse();
         String printedName = participantCreate.getPrintedName();

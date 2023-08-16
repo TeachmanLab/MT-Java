@@ -10,6 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -24,6 +27,9 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
     public static final String PASSWORD_MESSAGE = "Password must be at least 8 digits long.  It must contain one digit, a lower case letter, an upper case letter, and a special character.";
 
     private boolean over18;
+    public boolean eUCitizen;
+    public boolean euCitizenAgreement;
+    protected Date euConsentAgreedDate;
     private boolean admin;
     private boolean export; //added for export role
     private boolean coaching;
@@ -56,6 +62,11 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
             bindingResult.rejectValue("over18", "error.over18", "You must be over 18 to participate in this Study.");
         }
 
+        if(isEUCitizen() == true && isEuCitizenAgreement() != true)
+        {
+            bindingResult.rejectValue("EUCitizenAgreement", "error.euAgreementNotSigned", "As a citizen of the EU you must sign the agreement.");
+        }
+
         if(participantService.findByEmail(email) != null) {
             bindingResult.rejectValue("email", "error.emailExists", "This email already exists.");
         }
@@ -83,6 +94,10 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
             bindingResult.rejectValue("over18", "error.over18", "You must be over 18 to participate in this Study.");
         }
 
+        if(isEUCitizen() == true && isEuCitizenAgreement() == false)
+        {
+            bindingResult.rejectValue("EuCitizenAgreement", "error.euAgreementNotSigned", "As a citizen of the EU you must sign the agreement.");
+        }
         if(participantService.findByEmail(email) != null) {
             bindingResult.rejectValue("email", "error.emailExists", "This email already exists.");
         }
@@ -113,6 +128,8 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
         super.fromParticipant(p);
         this.setOver18(p.isOver18());
         this.setActive(p.isActive());
+        this.setEUCitizen(p.isEuCitizen());
+        this.setEuCitizenAgreement(p.isEuCitizen());
         this.setAdmin(p.isAdmin());
         this.setExport(p.isExport());
         this.setCoaching(p.isCoaching());
@@ -124,6 +141,8 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
     public Participant updateParticipant(Participant p) {
         super.updateParticipant(p);
         p.updatePassword(password);
+        p.setEuCitizen(eUCitizen);
+        p.setEuConsentAgreedDate(p.isEuCitizen() ? Date.from(LocalDateTime.now().atZone(ZoneId.of("America/New_York")).toInstant()) : null);
         p.setOver18(over18);
         p.setActive(active);
         p.setReceiveGiftCards(receiveGiftCards);
