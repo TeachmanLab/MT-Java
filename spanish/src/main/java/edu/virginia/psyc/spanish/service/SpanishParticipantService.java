@@ -2,6 +2,7 @@ package edu.virginia.psyc.spanish.service;
 
 import edu.virginia.psyc.spanish.domain.SpanishStudy;
 import edu.virginia.psyc.spanish.persistence.*;
+import lombok.val;
 import org.mindtrails.domain.Conditions.NoNewConditionException;
 import org.mindtrails.domain.Conditions.RandomCondition;
 import org.mindtrails.domain.Conditions.RandomConditionRepository;
@@ -137,6 +138,16 @@ public class SpanishParticipantService extends ParticipantServiceImpl implements
         p.getStudy().setReceiveGiftCards(tangoService.getEnabled());
 
         // Update the participants language based on the condition.
+
+        try {
+            val s1 = p.getStudy();
+            val c1 = p.getStudy().getConditioning();
+        }
+        catch (Exception e)
+        {
+            val e1 = e;
+        }
+
         if(p.getStudy().getConditioning().equals(SpanishStudy.CONDITION.ENGLISH_BILINGUAL.toString())) {
             locale = new Locale("en");
         } else {
