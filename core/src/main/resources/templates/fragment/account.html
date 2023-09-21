@@ -163,7 +163,21 @@
                                 giftCards.prop('disabled', false);
                             }
                         });
+                        $('#euCitizen').change(updateEuConsent);
+                        if ($('#euCitizen').is(':checked')) {
+                            $('#euCitizenAgreement').prop('checked', true);
+                        }
+                        updateEuConsent();
                     });
+                    function updateEuConsent() {
+                        if ($('#euCitizen').is(':checked')) {
+                            // If so, show the div with the class 'eu-consent'
+                            $('.eu-consent').show("fast");
+                        } else {
+                            // If not, hide the div with the class 'eu-consent'
+                            $('.eu-consent').hide("fast");
+                        }
+                    }
                 </script>
             </div>
         </div>
@@ -239,6 +253,77 @@
             </label>
         </div>
     </div>
+
+    <div class="form-group row">
+        <label class="control-label col-sm-2" for="euCitizen">I am an EU Citizen</label>
+        <div class="custom-control col-sm-10">
+            <label class="col-sm-10  inline-checkbox">
+                <input class="inline-checkbox" type="checkbox" id="euCitizen" name="eUCitizen"
+                       th:errorclass="error" />
+            </label>
+        </div>
+    </div>
+    <div class="eu-consent">
+        <div class="form-group row">
+            <div class="col-sm-12 eu-consent">
+                <p><strong>European General Data Protection Regulation (GDPR) Informed Consent Addendum</strong></p>
+                <p><strong>Study: IRB-SBS 2220</strong></p>
+                <p></p>
+                <p>In the Consent Form for this study you are told about how personal information about you will be collected and handled as part of your participation in the study. We would like to give you additional information due to the European General Data Protection Regulation (GDPR). This affects the handling and control of your personal information in this study.</p>
+                <p></p>
+                <p><strong>1. Information about the Institution carrying out this study: </strong></p>
+                <p>The institution carrying out the study and collecting your personal information is University of Virginia, PO BOX 400400, Charlottesville, VA, 22904-4400.</p>
+                <p>We will not share your identifiable personal data with any third party (all servers hosting data are part of IRB-approved institutions). We will only disclose the identifiable personal data to authorities for those situations where we will receive a lawful order to do so. See public data sharing agreement above (this does not include identifiable data). </p>
+                <p></p>
+                <p><strong>2. Personal data use</strong></p>
+                <p>We will only use your identifiable personal data for the purposes of this research project.</p>
+                <p></p>
+                <p><strong>3. Special categories of personal information: </strong></p>
+                <p>Please be aware that the personal information about you that will be collected in the study includes special categories of personal data, namely information about:</p>
+                <ul>
+                    <li>Demographics: Age (birth year) </li>
+                    <li>Contact Information: email, phone, zip code, IP address (stored separate from other data)</li>
+                    <li>Health Information </li>
+                    <li>Racial or Ethnic Origin</li>
+                    <li>Criminal Activity (varies by region and age: primarily, illegal use of alcohol)</li>
+                </ul>
+                <p>As a safeguard to protect your privacy, we will link your personal data with a code and store your identifying information separately. </p>
+                <p></p>
+                <p><strong>4. Your privacy rights </strong></p>
+                <p>For your personal information collected by the study you have the following data privacy rights:</p>
+                <ul>
+                    <li>To request information about the handling of your data. However, to protect the scientific integrity of the study, you may not be able to receive access to some of the data before the study ends. </li>
+                    <li>&middot; To request correction of data about you if it is incorrect or incomplete. During the assessment of this request, you have the right to restrict the processing of data about you. </li>
+                    <li>&middot; To request transfer of data about you to you or someone else in a commonly used format.</li>
+                    <li>&middot; To file a complaint with a data protection authority.</li>
+                    <li>&middot; To withdraw your consent at any time without giving a reason. You can withdraw your consent for study treatment and/or further follow up, without withdrawing consent for handling your data. You may also withdraw consent to the handling of your data, as described in the Consent Form. Then you will no longer be in the study, but the researchers will still use the data about you that was collected before you withdrew. After you withdraw, no further data will be collected from you.</li>
+                    <li>&middot; Along with your withdrawal, you have the right to request the deletion of data about you if your data are no longer needed or there is no other legal requirement for their use.</li>
+
+                </ul>
+                <p><strong>5. Transfer of data to other countries</strong></p>
+                <p>Your information may be transferred to or handled in countries other than the country where it was originally collected. Those countries may not have the same data protection laws as the country in which you initially provided the information. When we transfer your personal information to countries whose data protection level has not been confirmed as adequate by the European Commission, we will provide appropriate safeguards for the transfer of personal information as required by law.</p>
+                <p>Your personal data will be transferred to the United States, which has not sought nor obtained an adequacy decision from the European Commission. This means that there may be risks to your personal data under this jurisdiction. However, we adopt and implement sufficient safeguards to protect your personal data, as described in this form. We transfer your data on the basis of your explicit consent, under Article 49 GDPR. </p>
+                <p>If you have any concerns about how your personal data is being handled, use the address below to contact us. If you are not satisfied with our reply and how we protect your personal data, you can contact the data protection authority in your home country or in another relevant jurisdiction for this processing activity, pursuant to the conditions of Article 77 GDPR.</p>
+                <p></p>
+                <p><strong>If you wish to pursue any of your data privacy rights, please contact:</strong></p>
+                <p>Prof. Bethany Teachman, Department of Psychology, 102 Gilmer Hall, rm. 207, University of Virginia, Charlottesville, VA 22903. Telephone: 1-434-924-0676. E-mail: <a href="mailto:bteachman@virginia.edu">bteachman@virginia.edu</a></p>
+                <p>or IRB-SBS, Telephone: 1-434-924-5999, Email: <a href="mailto:irbsbshelp@virginia.edu">irbsbshelp@virginia.edu</a>, Website: <a href="https://research.virginia.edu/irb-sbs">https://research.virginia.edu/irb-sbs</a>, Website for Research Participants: <a href="https://research.virginia.edu/research-participants">https://research.virginia.edu/research-participants</a>, UVA IRB-SBS # 2304</p>
+                <p></p>
+                <p><strong>6. Retention of personal information</strong></p>
+                <p>Your information may be stored indefinitely after the end of the study.</p>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="euCitizenAgreement">I Agree</label>
+            <div class="custom-control col-sm-10">
+                <label class="col-sm-10  inline-checkbox">
+                    <input class="inline-checkbox" type="checkbox" id="euCitizenAgreement" name="euCitizenAgreement" th:errorclass="error"/>
+                </label>
+            </div>
+        </div>
+    </div>
+
+
 
     <div class="form-group row">
         <div class="col-sm-2"></div>

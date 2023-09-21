@@ -18,6 +18,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
@@ -242,6 +246,8 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
         if(oa_list.size() < 1) {
             throw new MissingEligibilityException();
         }
+
+        p.setEuConsentAgreedDate(p.isEuCitizen() ? Date.from(LocalDateTime.now().atZone(ZoneId.of("America/New_York")).toInstant()) : null);
 
         save(p);
         R01Study study = (R01Study)p.getStudy();

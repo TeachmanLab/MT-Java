@@ -73,6 +73,8 @@ public class Participant implements UserDetails, HasStudy {
     protected String randomToken;
     protected String theme = "blue";
     protected boolean over18;
+    protected  boolean euCitizen;
+    protected Date euConsentAgreedDate;
     protected String reference; // The site the user came from when creating their account
     protected String campaign; // A key passed into the landing page, to help identify where people come from.
     protected Date returnDate; // Date this user plans to return for next session.
