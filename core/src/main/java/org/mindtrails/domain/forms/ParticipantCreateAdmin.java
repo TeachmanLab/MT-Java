@@ -144,8 +144,8 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
     public Participant updateParticipant(Participant p) {
         super.updateParticipant(p);
         p.updatePassword(password);
-        this.setEUCitizen(p.isEuCitizen());
-        this.setEuCitizenAgreement(p.isEuCitizen());
+        p.setEuCitizen(isEUCitizen());
+        p.setEuConsentAgreedDate(p.getEuConsentAgreedDate());
         p.setOver18(over18);
         p.setActive(active);
         p.setReceiveGiftCards(receiveGiftCards);
