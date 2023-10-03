@@ -252,7 +252,7 @@
     </div>
     <div class="eu-consent">
         <div class="form-group row">
-            <div class="col-sm-12 eu-consent">
+            <div class="col-sm-12 eu-consent"  th:if="${#locale.toString() != 'es'}" >
                 <p><strong>European General Data Protection Regulation (GDPR) Informed Consent Addendum</strong></p>
                 <p><strong>Study: IRB-SBS 2220</strong></p>
                 <p></p>
@@ -298,6 +298,52 @@
                 <p></p>
                 <p><strong>6. Retention of personal information</strong></p>
                 <p>Your information may be stored indefinitely after the end of the study.</p>
+            </div>
+            <div class="col-sm-12 eu-consent"  th:if="${#locale.toString() == 'es'}" >
+                <p><strong>Anexo de consentimiento informado del Reglamento general europeo de protección de datos (RGPD)</strong></p>
+                <p><strong>Estudio: IRB-SBS 4117</strong></p>
+                <p></p>
+                <p>En el formulario de consentimiento para este estudio se le informa cómo se recopilará y manejará su información personal como parte de su participación en este estudio. Nos gustaría proveer información adicional debido al Reglamento general europeo de protección de datos. Esto afecta el manejo y control de su información personal en este estudio.</p>
+                <p></p>
+                <p><strong>1. Información sobre la institución que realiza este estudio: </strong></p>
+                <p>La institución que realiza este estudio y colecta su información personal es University of Virginia, PO BOX 400400, Charlottesville, VA, 22904-4400.</p>
+                <p>No compartiremos sus datos personales identificables con ningún tercero (todos los servidores que alojan datos son parte de instituciones aprobadas por el IRB). Solo revelaremos los datos personales identificables a las autoridades en aquellas situaciones en las que recibamos una orden legal para hacerlo. Consulte el acuerdo de intercambio de datos públicos más arriba (esto no incluye datos identificables).</p>
+                <p></p>
+                <p><strong>2. Uso de datos personales</strong></p>
+                <p>Sólo utilizaremos sus datos personales identificables para el propósito de este Proyecto de investigación.</p>
+                <p></p>
+                <p><strong>3. Categorías especiales de información personal: </strong></p>
+                <p>Tenga en cuenta que la información personal que será recopilada en este studio incluye categorías especiales de datos personal, a saber, información sobre:</p>
+                <ul>
+                    <li>Datos demográficos: Edad (año de nacimiento) </li>
+                    <li>Información de contacto: correo electrónico, número de teléfono, Código postal, dirección IP (almacenados separada de otros datos)</li>
+                    <li>Información de salud</li>
+                    <li>Origen racial o etnico</li>
+                </ul>
+                <p>Como medida de seguridad para proteger su privacidad, vinculamos sus datos personales con un código y almacenamos su información identificable por separado. </p>
+                <p></p>
+                <p><strong>4. Sus derechos de privacidad</strong></p>
+                <p>Para su información personal recopilada por el estudio, usted tiene los siguientes derechos de privacidad de datos:</p>
+                <ul>
+                    <li>Solicitar información sobre el manejo de sus datos. Sin embargo, para proteger la integridad científica del estudio, es posible que no recibirá acceso a algunos de los datos antes de que finalice el estudio.</li>
+                    <li>Solicitar la corrección de sus datos si son incorrectos o están incompletos. Durante la evaluación de esta solicitud, usted tiene el derecho a restringir el procesamiento de sus datos.</li>
+                    <li>Solicitar la transferencia de sus datos a usted o a otra persona en un formato de uso común.</li>
+                    <li>Presentar una reclamación ante una autoridad de protección de datos.</li>
+                    <li>A retirar su consentimiento en cualquier momento sin necesidad de dar motivo. Puede retirar su consentimiento para el tratamiento del estudio y/o seguimiento adicional, sin retirar el consentimiento para el manejo de sus datos.</li>
+                    <li>También puede retirar el consentimiento para el manejo de sus datos, tal y como se describe en el Formulario de consentimiento. Entonces usted ya no estará en el estudio, pero los investigadores seguirán usando los datos sobre usted que se recopilaron antes de que se retirara. Después de retirarse, no se recopilaran más datos suyos.</li>
+
+                </ul>
+                <p><strong>5. Transferencia de datos a otros países</strong></p>
+                <p>Su información puede ser transferida o manejada en países distintos del país donde se recopiló originalmente. Es posible que esos países no tengan las mismas leyes de protección de datos que el país en el que proporcionó inicialmente la información. Cuando transferimos su información a países cuyo nivel de protección de datos no ha sido confirmado como adecuado por la Comisión Europea, proporcionaremos las garantías adecuadas para la transferencia de información personal según lo que exige la ley.</p>
+                <p>Sus datos personales serán transferidos a los Estados Unidos, que no ha solicitado ni obtenido una decisión de adecuación de la Comisión Europea. Esto significa que puede haber riesgos para sus datos personales bajo esta jurisdicción. Sin embargo, adoptamos e implementamos suficientes medidas de seguridad para proteger sus datos personales, como se describe en este formulario. Transferimos sus datos sobre la base de su consentimiento explícito, según el artículo 49 del RGPD.</p>
+                <p>Si tiene alguna inquietud sobre cómo se manejan sus datos personales, utilice la dirección a continuación para contactarnos. Si no está satisfecho con nuestra respuesta y con la manera de que protegemos sus datos personales, puede contactar la autoridad de protección de datos en su país de origen o en otra jurisdicción relevante para esta actividad de procesamiento, de conformidad con las condiciones del artículo 77 del RGPD.</p>
+                <p></p>
+                <p><strong>Si desea ejercer cualquiera de sus derechos de privacidad de datos, comuníquese con:</strong></p>
+                <p>Prof. Bethany Teachman, Department of Psychology, 102 Gilmer Hall, rm. 207, University of Virginia, Charlottesville, VA 22903. Telephone: 1-434-924-0676. E-mail: <a href="mailto:bteachman@virginia.edu">bteachman@virginia.edu</a></p>
+                <p>Número de teléfono: 1-434-924-5999, Correo electrónico: <a href="mailto:irbsbshelp@virginia.edu">irbsbshelp@virginia.edu</a>, Website: <a href="https://research.virginia.edu/irb-sbs">https://research.virginia.edu/irb-sbs</a>, Sitio para los participantes de estudios: <a href="https://research.virginia.edu/research-participants">https://research.virginia.edu/research-participants</a>, UVA IRB-SBS # 2304</p>
+                <p></p>
+                <p><strong>6. Conservación de información personal</strong></p>
+                <p>Su información puede ser almacenada indefinidamente después de finalizar este estudio.</p>
             </div>
         </div>
         <div class="form-group row">
